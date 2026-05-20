@@ -13,6 +13,8 @@ dependencies = [
     "faker>=40.15.0",
     "lxml>=6.1.0",
     "numpy>=2.4.4",
+    "openpyxl>=3.1.5",
+    "pandas>=3.0.3",
     "playwright>=1.58.0",
     "playwright-stealth>=2.0.3",
     "pytest>=9.0.3",
@@ -27,7 +29,7 @@ dependencies = [
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
-testpaths = ["tests"]
+testpaths = ["src/tests"]
 pythonpath = ["."]
 
 [tool.pytest_env]
