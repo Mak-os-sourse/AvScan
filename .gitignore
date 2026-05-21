@@ -8,6 +8,7 @@ wheels/
 settings.env
 pgdata
 .vscode
+logs
 
 # Virtual environments
 .venv

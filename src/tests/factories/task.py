@@ -14,7 +14,6 @@ class TaskFactory(Factory):
         user_id: int,
         url: str = fake.url(),
         interval: int = 0,
-        last_views: int = 0,
         scheduled_at: int = 0,
         launches: int = 0,
     ) -> Tasks:
@@ -23,7 +22,6 @@ class TaskFactory(Factory):
             url=url,
             user_id=user_id,
             interval=interval,
-            last_views=last_views,
             scheduled_at=scheduled_at,
             launches=launches,
         )

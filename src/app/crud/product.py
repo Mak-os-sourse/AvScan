@@ -10,14 +10,14 @@ class ProductCRUD(BaseCrud):
     async def create(self,
         session: AsyncSession, url: str,
         id_product: int, name: str,
-        description: str, price: int,
+        description: str, price: str | int,
         url_photo: str, user_id: int,
         task_id: int
         ) -> Products:
         return await super().insert(
             session, url=url,
             id_product=id_product,
-            name=name, price=price,
+            name=name, price=str(price),
             description=description,
             url_photo=url_photo,
             user_id=user_id,

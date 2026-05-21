@@ -11,11 +11,13 @@ class UserFactory(Factory):
     async def add(
         self,
         session: AsyncSession,
+        id: int = 1,
         username: str = fake.user_name(),
         is_admin: bool = False,
     ) -> Users:
         return await super().add(
             session,
+            id=id,
             username=username,
             is_admin=is_admin,
         )

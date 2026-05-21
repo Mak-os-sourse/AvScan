@@ -10,14 +10,14 @@ class TaskCRUD(BaseCrud):
     async def create(self,
         session: AsyncSession, url: str,
         scheduled_at: int, user_id: int,
-        interval: int | None = None, last_views: int = 0,
+        interval: int | None = None,
         launches: int = 0
         ) -> Tasks:
         return await super().insert(
             session, url=url,
             scheduled_at=scheduled_at,
             user_id=user_id, interval=interval,
-            last_views=last_views, launches=launches,
+            launches=launches,
         )
     
     async def get(self, session: AsyncSession, **kargs) -> Tasks | None:

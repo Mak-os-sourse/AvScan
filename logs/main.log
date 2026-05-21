@@ -2874,3 +2874,62 @@
 {"event": "Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected"}
 {"event": "Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8558608642)"}
 {"event": "Polling stopped for bot @parsersite3_bot id=8558608642 - 'parser avito'"}
+{"event": "select pg_catalog.version()"}
+{"event": "[raw sql] ()"}
+{"event": "select current_schema()"}
+{"event": "[raw sql] ()"}
+{"event": "show standard_conforming_strings"}
+{"event": "[raw sql] ()"}
+{"event": "BEGIN (implicit)"}
+{"event": "SELECT pg_catalog.pg_class.relname \nFROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace \nWHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR"}
+{"event": "[generated in 0.00061s] ('Tasks', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')"}
+{"event": "SELECT pg_catalog.pg_class.relname \nFROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace \nWHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR"}
+{"event": "[cached since 0.01673s ago] ('Users', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')"}
+{"event": "SELECT pg_catalog.pg_class.relname \nFROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace \nWHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR"}
+{"event": "[cached since 0.01901s ago] ('Products', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')"}
+{"event": "COMMIT"}
+{"event": "Start polling"}
+{"event": "Run polling for bot @parsersite3_bot id=8558608642 - 'parser avito'"}
+{"event": "BEGIN (implicit)"}
+{"event": "SELECT \"Users\".id, \"Users\".username, \"Users\".reg_date, \"Users\".is_admin \nFROM \"Users\" \nWHERE \"Users\".id = $1::BIGINT"}
+{"event": "[generated in 0.00053s] (6109523864,)"}
+{"event": "COMMIT"}
+{"event": "Update id=782178698 is handled. Duration 441 ms by bot id=8558608642"}
+{"event": "BEGIN (implicit)"}
+{"event": "SELECT \"Tasks\".id, \"Tasks\".url, \"Tasks\".interval, \"Tasks\".last_views, \"Tasks\".scheduled_at, \"Tasks\".last_update, \"Tasks\".launches, \"Tasks\".user_id \nFROM \"Tasks\" \nWHERE \"Tasks\".user_id = $1::BIGINT"}
+{"event": "[generated in 0.00048s] (6109523864,)"}
+{"event": "SELECT \"Users\".id AS \"Users_id\", \"Users\".username AS \"Users_username\", \"Users\".reg_date AS \"Users_reg_date\", \"Users\".is_admin AS \"Users_is_admin\" \nFROM \"Users\" \nWHERE \"Users\".id IN ($1::BIGINT)"}
+{"event": "[generated in 0.00057s] (6109523864,)"}
+{"event": "COMMIT"}
+{"event": "Update id=782178699 is handled. Duration 128 ms by bot id=8558608642"}
+{"event": "BEGIN (implicit)"}
+{"event": "SELECT \"Users\".id, \"Users\".username, \"Users\".reg_date, \"Users\".is_admin \nFROM \"Users\" \nWHERE \"Users\".id = $1::BIGINT"}
+{"event": "[cached since 276.3s ago] (6109523864,)"}
+{"event": "COMMIT"}
+{"event": "Update id=782178700 is handled. Duration 110 ms by bot id=8558608642"}
+{"event": "BEGIN (implicit)"}
+{"event": "SELECT \"Tasks\".id, \"Tasks\".url, \"Tasks\".interval, \"Tasks\".last_views, \"Tasks\".scheduled_at, \"Tasks\".last_update, \"Tasks\".launches, \"Tasks\".user_id \nFROM \"Tasks\" \nWHERE \"Tasks\".user_id = $1::BIGINT"}
+{"event": "[cached since 2.549s ago] (6109523864,)"}
+{"event": "SELECT \"Users\".id AS \"Users_id\", \"Users\".username AS \"Users_username\", \"Users\".reg_date AS \"Users_reg_date\", \"Users\".is_admin AS \"Users_is_admin\" \nFROM \"Users\" \nWHERE \"Users\".id IN ($1::BIGINT)"}
+{"event": "[cached since 2.541s ago] (6109523864,)"}
+{"event": "COMMIT"}
+{"event": "Update id=782178701 is handled. Duration 108 ms by bot id=8558608642"}
+{"event": "Update id=782178702 is handled. Duration 98 ms by bot id=8558608642"}
+{"event": "BEGIN (implicit)"}
+{"event": "SELECT \"Tasks\".id, \"Tasks\".url, \"Tasks\".interval, \"Tasks\".last_views, \"Tasks\".scheduled_at, \"Tasks\".last_update, \"Tasks\".launches, \"Tasks\".user_id \nFROM \"Tasks\" \nWHERE \"Tasks\".user_id = $1::BIGINT"}
+{"event": "[cached since 22.19s ago] (6109523864,)"}
+{"event": "SELECT \"Users\".id AS \"Users_id\", \"Users\".username AS \"Users_username\", \"Users\".reg_date AS \"Users_reg_date\", \"Users\".is_admin AS \"Users_is_admin\" \nFROM \"Users\" \nWHERE \"Users\".id IN ($1::BIGINT)"}
+{"event": "[cached since 22.18s ago] (6109523864,)"}
+{"event": "COMMIT"}
+{"event": "Update id=782178703 is handled. Duration 161 ms by bot id=8558608642"}
+{"event": "BEGIN (implicit)"}
+{"event": "SELECT \"Users\".id, \"Users\".username, \"Users\".reg_date, \"Users\".is_admin \nFROM \"Users\" \nWHERE \"Users\".id = $1::BIGINT"}
+{"event": "[cached since 298.4s ago] (6109523864,)"}
+{"event": "COMMIT"}
+{"event": "Update id=782178704 is handled. Duration 108 ms by bot id=8558608642"}
+{"event": "Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected"}
+{"event": "Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8558608642)"}
+{"event": "Connection established (tryings = 1, bot id = 8558608642)"}
+{"event": "Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected"}
+{"event": "Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8558608642)"}
+{"event": "Connection established (tryings = 1, bot id = 8558608642)"}

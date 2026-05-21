@@ -43,7 +43,6 @@ class Scraper:
         except ListProductError:
             raise
         except Exception as e:
-            raise
             logger.error("Error scrape", url=formatted_url , error=str(e))
     
     def _format_url(self, url: str, page_count: int = 1, local_priority: int = 1):

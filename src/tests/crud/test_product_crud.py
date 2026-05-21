@@ -18,34 +18,34 @@ async def test_insert(session: AsyncSession):
         url_photo=fake.url(),
         task_id=1,
     )
-    task = await product_factory.get(session, user_id=user.id)
-    assert task.id == result.id
+    product = await product_factory.get(session, user_id=user.id)
+    assert product.id == result.id
 
 async def test_get(session: AsyncSession):
     user = await user_factory.add(session)
-    task = await product_factory.add(session, user_id=user.id)
-    result = await product_crud.get(session, id=task.id)
-    assert task.id == result.id
+    product = await product_factory.add(session, user_id=user.id)
+    result = await product_crud.get(session, id=product.id)
+    assert product.id == result.id
 
 async def test_get_all(session: AsyncSession):
     user = await user_factory.add(session)
-    task = await product_factory.add(session, user_id=user.id)
-    result = await product_crud.get_all(session, id=user.id)
+    product = await product_factory.add(session, user_id=user.id)
+    result = await product_crud.get_all(session, id=product.id)
     assert result
-    assert task.id == result[0].id
+    assert product.id == result[0].id
     
 async def test_update(session: AsyncSession):
     url = fake.url()
     new_url = fake.url()
     user = await user_factory.add(session)
-    task = await product_factory.add(session, user_id=user.id, url=url)
-    await product_crud.update(session, id=task.id, url=new_url)
-    result = await product_factory.get(session, id=user.id)
+    product = await product_factory.add(session, user_id=user.id, url=url)
+    await product_crud.update(session, id=product.id, url=new_url)
+    result = await product_factory.get(session, id=product.id)
     assert result.url == new_url
     
 async def test_delete(session: AsyncSession):
     user = await user_factory.add(session)
-    task = await product_factory.add(session, user_id=user.id)
-    await product_crud.delete(session, id=task.id)
+    product = await product_factory.add(session, user_id=user.id)
+    await product_crud.delete(session, id=product.id)
     result = await product_factory.get(session, id=user.id)
     assert result is None

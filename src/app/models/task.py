@@ -10,7 +10,6 @@ class Tasks(Base):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True, index=True)
     url: Mapped[str] = mapped_column(index=True)
     interval: Mapped[int] = mapped_column(index=True)
-    last_views: Mapped[int] = mapped_column(index=True)
     scheduled_at: Mapped[int] = mapped_column(index=True)
     last_update: Mapped[int] = mapped_column(onupdate=int(time.time()), nullable=True)
     launches: Mapped[int] = mapped_column(index=True)

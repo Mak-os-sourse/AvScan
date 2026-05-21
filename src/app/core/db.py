@@ -4,7 +4,7 @@ from src.app.core.settings import settings
 
 class DB:
     def __init__(self, url: str):
-        self.engine = create_async_engine(url, echo=True)
+        self.engine = create_async_engine(url, echo=False)
         self.sessionmaker = async_sessionmaker(self.engine)
     
     async def get_session(self):

@@ -43,5 +43,5 @@ async def test_delete(session: AsyncSession):
     user = await user_factory.add(session)
     task = await task_factory.add(session, user_id=user.id)
     await task_crud.delete(session, id=task.id)
-    result = await task_factory.get(session, id=user.id)
+    result = await task_factory.get(session, id=task.id)
     assert result is None

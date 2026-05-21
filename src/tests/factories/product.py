@@ -17,14 +17,14 @@ class ProductFactory(Factory):
         name: str = fake.name(),
         url_photo: str = fake.url(),
         description: str = fake.text(),
-        price: int = random.randint(0, 10000),
+        price: str | int = random.randint(0, 10000),
         id_product: int = random.randint(0, 1000),
     ) -> Products:
         return await super().add(
             session,
             url=url,
             id_product=id_product,
-            name=name, price=price,
+            name=name, price=str(price),
             description=description,
             url_photo=url_photo,
             user_id=user_id

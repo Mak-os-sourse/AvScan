@@ -23,7 +23,7 @@ async def test_start(mock: AsyncMock, session: AsyncSession, cache: Redis):
     
     task_queue = TaskQueue(id=task.id, url=fake.url(), user_id=1, mode=ModeTask.INTERVAL)
     await cache.zadd(queue.name_queue, {task_queue.to_json(): 0.8})
-    mock.return_value = []
+    mock.return_value = {}
     
     await parser_task.parse(session=session, task=task_queue)
     
@@ -37,14 +37,14 @@ async def test_start_add_product(mock: AsyncMock, session: AsyncSession, cache: 
     
     task_queue = TaskQueue(id=task.id, url=url, user_id=user.id, mode=ModeTask.INTERVAL)
     await cache.zadd(queue.name_queue, {task_queue.to_json(): 0.8})
-    mock.return_value = [Product(
+    mock.return_value = {1: Product(
         id=1,
         name=fake.name(),
         price=100,
         description=fake.text(),
         url=fake.url(),
         image=fake.url(),
-    )]
+    )}
     
     await parser_task.parse(session=session, task=task_queue)
 

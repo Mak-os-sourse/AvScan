@@ -46,7 +46,7 @@ class ParserTask:
             task_id = task.id if task.mode == ModeTask.INTERVAL else None
             data = {
                 "name": item.name,
-                "price": item.price,
+                "price": str(item.price),
                 "url": item.url,
                 "id_product": item.id,
                 "description": item.description,

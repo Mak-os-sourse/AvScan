@@ -6,7 +6,7 @@ from src.tests.fake import fake
 
 async def test_insert(session: AsyncSession):
     username = fake.user_name()
-    result = await user_crud.create(session, username=username)
+    result = await user_crud.create(session, id=1, username=username)
     user = await user_factory.get(session, username=username)
     assert user.id == result.id
 
