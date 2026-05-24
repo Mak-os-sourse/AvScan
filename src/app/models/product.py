@@ -16,6 +16,6 @@ class Products(Base):
     url_photo: Mapped[str] = mapped_column(nullable=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("Users.id"))
     task_id: Mapped[int] = mapped_column(nullable=True)
-    create_data: Mapped[int] = mapped_column(BigInteger, default=int(time.time()))
+    create_data: Mapped[int] = mapped_column(BigInteger, default=lambda: int(time.time()))
     
     user: Mapped["Users"] = relationship(lazy="selectin")

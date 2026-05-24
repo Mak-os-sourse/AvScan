@@ -17,7 +17,7 @@ async def parisng(callback: CallbackQuery, state: FSMContext):
     await state.set_state(Parsing.url)
     await state.update_data(user=user)
     menu = back_main_menu()
-    return callback.message.edit_caption(caption=text.input_url, reply_markup=menu)
+    return await callback.message.edit_caption(caption=text.input_url, reply_markup=menu)
 
 @router.message(StateFilter(Parsing.url))
 async def get_url(message: Message, state: FSMContext):

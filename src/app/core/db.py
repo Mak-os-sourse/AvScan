@@ -20,4 +20,4 @@ class DB:
         async with self.engine.begin() as conn:
             await conn.run_sync(base.metadata.drop_all)
 
-db = DB(url=settings.DB_URL)
+db = DB(url=str(settings.DB_URL))

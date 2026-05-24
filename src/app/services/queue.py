@@ -1,5 +1,5 @@
 import json
-from uuid import uuid4, UUID
+from uuid import uuid4
 
 from src.app.services.priority import priority_service
 from src.app.types.queue import TaskQueue, ModeTask
@@ -8,13 +8,13 @@ from src.app.models.task import Tasks
 from src.app.core.cache import redis
 
 class Queue:
-    def __init__(self, name_queue: str = "queue:parser"):
+    def __init__(self, name_queue: str):
         self.name_queue = name_queue
     
     async def get_task(self) -> TaskQueue | None:
-        task = await redis.zrevrange(self.name_queue, 0, 0)
+        task = await redis.zpopmax(self.name_queue)
         if task:
-            data = json.loads(task[0])
+            data = json.loads(task[0][0])
             return TaskQueue(**data)
     
     async def add_fast_task(self, url: str, user_id: int) -> int:
@@ -31,7 +31,11 @@ class Queue:
     async def update_queue(self, tasks: list[Tasks]) -> None:
         for item in tasks:
             priority = priority_service.get(item.scheduled_at)
-            task_queue = TaskQueue(id=item.id, url=item.url, user_id=item.user_id, mode=ModeTask.INTERVAL)
+            task_queue = TaskQueue(
+                id=item.id, url=item.url,
+                user_id=item.user_id,
+                completed=item.completed,
+                mode=ModeTask.INTERVAL)
             await redis.zadd(self.name_queue, {task_queue.to_json(): priority})
         
-queue = Queue()
+queue = Queue(settings.QUEUE_NAME)

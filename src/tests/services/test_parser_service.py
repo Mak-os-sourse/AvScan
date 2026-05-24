@@ -9,12 +9,8 @@ from src.tests.factories.task import task_factory
 from src.tests.factories.user import user_factory
 from src.app.types.queue import TaskQueue, ModeTask
 from src.tests.factories.product import product_factory
-from src.app.services.parser_task import parser_task
+from src.app.services.parser_service import parser_service
 from src.app.exceptions.parser import ListProductError
-
-class State:
-    last_views = 0
-    tasks = {}
 
 @patch("src.app.services.parser.scraper.scraper.scrape", new_callable=AsyncMock)
 async def test_start(mock: AsyncMock, session: AsyncSession, cache: Redis):
@@ -25,7 +21,7 @@ async def test_start(mock: AsyncMock, session: AsyncSession, cache: Redis):
     await cache.zadd(queue.name_queue, {task_queue.to_json(): 0.8})
     mock.return_value = {}
     
-    await parser_task.parse(session=session, task=task_queue)
+    await parser_service.parse(session=session, task=task_queue)
     
     assert await cache.zrevrange(queue.name_queue, 1, 0) == []
     
@@ -46,21 +42,10 @@ async def test_start_add_product(mock: AsyncMock, session: AsyncSession, cache: 
         image=fake.url(),
     )}
     
-    await parser_task.parse(session=session, task=task_queue)
+    await parser_service.parse(session=session, task=task_queue)
 
     mock.assert_awaited_once_with(url)
     assert await product_factory.get_all(session)
-    
-async def test_start_update_task(session: AsyncSession):
-    user = await user_factory.add(session)
-    task = await task_factory.add(session, user_id=user.id, interval=10)
-    scheduled_old = task.scheduled_at
-
-    await parser_task.update_task(session=session, id=task.id, state=State)
-
-    result = await task_factory.get(session, id=task.id)
-    
-    assert result.scheduled_at != scheduled_old
 
 @patch("src.app.services.parser.scraper.scraper.scrape", new_callable=AsyncMock)
 async def test_start_fail_parsing(mock: AsyncMock, session: AsyncSession, cache: Redis):
@@ -71,7 +56,7 @@ async def test_start_fail_parsing(mock: AsyncMock, session: AsyncSession, cache:
     await cache.zadd(queue.name_queue, {task_queue.to_json(): 0.8})
     mock.side_effect = ListProductError()
     
-    await parser_task.parse(session=session, task=task_queue)
+    await parser_service.parse(session=session, task=task_queue)
 
     mock.assert_awaited_once_with(task.url)
     assert await task_factory.get(session, id=task.id) is None

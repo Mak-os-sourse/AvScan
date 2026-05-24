@@ -13,6 +13,7 @@ class TaskQueue:
     url: str
     user_id: str
     mode: Literal["Fast", "Interval"]
+    completed: bool = False
 
     def to_dict(self):
         return asdict(self)

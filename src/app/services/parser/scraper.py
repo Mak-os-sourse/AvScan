@@ -11,9 +11,9 @@ from src.app.core.logger import Logger
 logger = Logger.get_logger(__name__)
 
 class Scraper:
-    def __init__(self):
+    def __init__(self, headless: bool):
         self.parser = Parser()
-        self.sm = SiteManager(headless=settings.HEADLESS)
+        self.sm = SiteManager(headless=headless)
     
     async def scrape(self, url: str) -> dict[int, Product]:
         if self.sm.browser is None:
@@ -78,4 +78,4 @@ class Scraper:
         await self.sm.scroll_page(site.id)
         await self.sm.get_page(site.url)
 
-scraper = Scraper()
+scraper = Scraper(settings.HEADLESS)

@@ -2,7 +2,7 @@ import logging, structlog
 from logging import StreamHandler
 from logging.handlers import RotatingFileHandler
 
-from src.app.core.settings import Settings
+from src.app.core.settings import settings
 
 class Logger:
     @staticmethod
@@ -35,7 +35,7 @@ class Logger:
     @staticmethod
     def _file_handler() -> RotatingFileHandler:
         file_handler = RotatingFileHandler(
-            Settings.PATH_LOGS / "main.log",
+            settings.PATH_LOGS / "main.log",
             maxBytes=1024*1024,
             backupCount=5,
         )

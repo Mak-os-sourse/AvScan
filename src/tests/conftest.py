@@ -9,7 +9,7 @@ from src.app.core.base import Base
 from src.app.core.cache import redis
 from src.app.core.settings import settings
 
-db.engine = create_async_engine(settings.DB_URL, poolclass=NullPool)
+db.engine = create_async_engine(str(settings.DB_URL), poolclass=NullPool)
 db.sessionmaker = async_sessionmaker(db.engine)
 
 @pytest_asyncio.fixture(autouse=True, scope="session")

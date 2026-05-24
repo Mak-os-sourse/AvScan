@@ -9,6 +9,7 @@ settings.env
 pgdata
 .vscode
 logs
+.vscode
 
 # Virtual environments
 .venv
