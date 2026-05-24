@@ -16,7 +16,7 @@ class ParserTask:
     @staticmethod
     @broker.task()
     async def start_polling(session: AsyncSession = TaskiqDepends(db.get_session)):
-        task_queue = await ParserTask._get_task_queue()
+        task_queue = await ParserTask._get_task_queue(session)
         if task_queue is None:
             return
         
