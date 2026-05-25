@@ -12,7 +12,7 @@ async def test_sync_queue(session: AsyncSession, cache: Redis):
     user = await user_factory.add(session)
     await task_factory.add(session, user_id=user.id)
     
-    await dispatcher_queue.sync_queue(session)
+    await dispatcher_queue.sync_queue(redis=cache, session=session)
     
     assert await cache.zpopmax(queue.name_queue)
     assert dispatcher_queue.tasks
@@ -29,7 +29,7 @@ async def test_sync_queue_delete_task(session: AsyncSession, cache: Redis):
     )
     
     dispatcher_queue.tasks[task.id] = task
-    await dispatcher_queue.sync_queue(session)
+    await dispatcher_queue.sync_queue(redis=cache, session=session)
     
     assert not await cache.zpopmax(queue.name_queue)
     assert not dispatcher_queue.tasks

@@ -4,4 +4,4 @@ from sqlalchemy.orm import DeclarativeBase
 class Base(DeclarativeBase):
     pass
 
-TModel = TypeVar("TMode", bound=Base)
+TModel = TypeVar("TModel", bound=Base)

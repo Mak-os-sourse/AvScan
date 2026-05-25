@@ -1,5 +1,6 @@
 from aiogram import Router, F
-from aiogram.types import Message, CallbackQuery, FSInputFile
+from redis.asyncio import Redis
+from aiogram.types import Message, CallbackQuery
 from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 
@@ -20,14 +21,14 @@ async def parisng(callback: CallbackQuery, state: FSMContext):
     return await callback.message.edit_caption(caption=text.input_url, reply_markup=menu)
 
 @router.message(StateFilter(Parsing.url))
-async def get_url(message: Message, state: FSMContext):
+async def get_url(message: Message, state: FSMContext, redis: Redis):
     if not await check_url(message):
         return
     url = message.text
     user = await state.get_value("user")
     
     await state.update_data(url=url)
-    await queue.add_fast_task(url=url, user_id=user["id"])
+    await queue.add_fast_task(redis, url=url, user_id=user["id"])
     
     photo = get_main_photo()
     return await message.answer_photo(

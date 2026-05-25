@@ -16,4 +16,4 @@ class Tasks(Base):
     user_id: Mapped[int] = mapped_column(ForeignKey("Users.id"), index=True)
     completed: Mapped[bool] = mapped_column(default=False)
     
-    user: Mapped["Users"] = relationship(lazy="selectin", cascade="all, delete")
+    user: Mapped["Users"] = relationship(lazy="selectin")

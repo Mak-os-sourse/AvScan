@@ -1,5 +1,6 @@
 import time
 from aiogram import Router, F
+from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import AsyncSession
 from aiogram.types import Message, CallbackQuery
 from aiogram.filters import StateFilter
@@ -22,7 +23,7 @@ async def interval_parsing(callback: CallbackQuery, state: FSMContext):
     return await callback.message.edit_caption(caption=text.input_url, reply_markup=back_main_menu())
 
 @router.message(StateFilter(IntervalParsing.url))
-async def get_url_interval(message: Message, state: FSMContext):
+async def get_url(message: Message, state: FSMContext):
     if not await check_url(message):
         return
     await state.update_data(url=message.text)
@@ -36,7 +37,7 @@ async def get_url_interval(message: Message, state: FSMContext):
     )
     
 @router.message(StateFilter(IntervalParsing.time))
-async def get_interval(message: Message, state: FSMContext, session: AsyncSession):
+async def get_interval(message: Message, state: FSMContext, session: AsyncSession, redis: Redis):
     user = await state.get_value("user")
     interval = await get_interval_second(message)
     if interval is None:
@@ -50,7 +51,7 @@ async def get_interval(message: Message, state: FSMContext, session: AsyncSessio
         user_id=user["id"],
     )
     
-    await queue.add_task(task)
+    await queue.add_task(redis, task)
     photo = get_main_photo()
     return await message.answer_photo(
         photo=photo,

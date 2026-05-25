@@ -11,7 +11,7 @@ class ModeTask(StrEnum):
 class TaskQueue:
     id: int
     url: str
-    user_id: str
+    user_id: int
     mode: Literal["Fast", "Interval"]
     completed: bool = False
 

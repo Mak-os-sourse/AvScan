@@ -1,12 +1,12 @@
 import pytest_asyncio
-from sqlalchemy import delete, text
+from sqlalchemy import delete
+from redis.asyncio import Redis
 from sqlalchemy.pool import NullPool
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 
 from src.app.models import *
 from src.app.core.db import db
 from src.app.core.base import Base
-from src.app.core.cache import redis
 from src.app.core.settings import settings
 
 db.engine = create_async_engine(str(settings.DB_URL), poolclass=NullPool)
@@ -28,6 +28,7 @@ async def session():
 
 @pytest_asyncio.fixture
 async def cache():
+    redis = Redis.from_url(str(settings.REDIS_URL))
     yield redis
     await redis.flushall()
     await redis.aclose()
