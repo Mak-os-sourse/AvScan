@@ -21,14 +21,12 @@ class ParserTask:
         while True:
             task_queue = await ParserTask._get_task_queue(redis=redis)
             if task_queue is None:
-                await dispatcher_queue.sync_queue(session=session, redis=redis)
-                await asyncio.sleep(5)
+                await ParserTask._pass(session=session, redis=redis)
                 continue
             
             products = await ParserTask._get_product(session=session, task_queue=task_queue)
             if products is None:
-                await dispatcher_queue.sync_queue(session=session, redis=redis)
-                await asyncio.sleep(5)
+                await ParserTask._pass(session=session, redis=redis)
                 continue
             
             products = list(products.values())
@@ -37,6 +35,11 @@ class ParserTask:
             
             await ParserTask._send_message(session, task_queue=task_queue, products=products)
             await asyncio.sleep(5)
+    
+    @staticmethod
+    async def _pass(session: AsyncSession, redis: Redis):
+        await dispatcher_queue.sync_queue(session=session, redis=redis)
+        await asyncio.sleep(5)
     
     @staticmethod
     async def _get_task_queue(redis: Redis) -> TaskQueue | None:

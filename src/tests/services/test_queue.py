@@ -12,9 +12,9 @@ from src.tests.fake import fake
 async def test_get_task(cache: Redis):
     task_id = random.randint(0, 1000)
     key = TaskQueue(id=task_id, url=fake.url(), user_id=1, mode=ModeTask.INTERVAL)
-    await cache.zadd(queue.name_queue, {key.to_json(): 0.7})
+    await cache.zadd(queue.name_queue, {key.model_dump_json(): 0.7})
     
-    task = (await queue.get_task(cache)).to_dict()
+    task = (await queue.get_task(cache)).model_dump()
     assert task["id"] == task_id
 
 async def test_add_fast_task(cache: Redis):
@@ -36,9 +36,8 @@ async def test_add_task(cache: Redis, session: AsyncSession):
 async def test_update_queue(cache: Redis, session: AsyncSession):
     user = await user_factory.add(session)
     task = await task_factory.add(session, user_id=user.id)
-    key = json.dumps({"id": task.id, "url": task.url})
-    
-    await cache.zadd(queue.name_queue, {key: 0.8})
+    key = TaskQueue(id=task.id, url=fake.url(), user_id=1, mode=ModeTask.INTERVAL)
+    await cache.zadd(queue.name_queue, {key.model_dump_json(): 0.7})
     
     await queue.update_queue(cache, [task])
     

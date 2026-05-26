@@ -44,6 +44,7 @@ class Scraper:
             raise
         except Exception as e:
             logger.error("Error scrape", url=formatted_url , error=str(e))
+            return {}
     
     def _format_url(self, url: str, page_count: int = 1, local_priority: int = 1):
         priority = re.search(r"localPriority=\d+", url)
@@ -71,7 +72,7 @@ class Scraper:
     
     async def _simulate_get_product(self, products: dict[int, Product]) -> None:
         len_list = len(products) - 1
-        if len_list == 0:
+        if len_list >= 1:
             return
         index = randint(0, len_list)
         site = list(products.values())[index]

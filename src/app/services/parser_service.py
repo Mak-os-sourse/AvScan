@@ -2,7 +2,7 @@ from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.app.crud.task import task_crud
-from src.app.models.product import Products
+from src.app.models.product import Products as ProductDB
 from src.app.services.parser.scraper import scraper
 from src.app.types.queue import TaskQueue, ModeTask
 from src.app.exceptions.parser import ListProductError
@@ -31,9 +31,9 @@ class ParserService:
                 "user_id": task.user_id,
                 "task_id": task_id,
             }
-            stmt = insert(Products) \
+            stmt = insert(ProductDB) \
                 .values(data) \
-                .on_conflict_do_update(index_elements=[Products.id_product], set_=data)
+                .on_conflict_do_update(index_elements=[ProductDB.id_product], set_=data)
             await session.execute(stmt)
         await session.commit()
     

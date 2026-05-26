@@ -7,7 +7,10 @@ class DBMiddleware(BaseMiddleware):
         
     async def __call__(self, handler, event, data):
         async with self.sessionmaker() as session:
-            data["session"] = session
-            result = await handler(event, data)
-            await session.commit() 
-            return result
+            try:
+                data["session"] = session
+                result = await handler(event, data)
+                await session.commit() 
+                return result
+            except:
+                await session.rollback()

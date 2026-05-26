@@ -9,8 +9,11 @@ class DB:
     
     async def get_session(self):
         async with self.sessionmaker() as session:
-            yield session
-            await session.commit()
+            try:
+                yield session
+                await session.commit()
+            except:
+                await session.rollback()
     
     async def metadata_create_all(self, base):
         async with self.engine.begin() as conn:

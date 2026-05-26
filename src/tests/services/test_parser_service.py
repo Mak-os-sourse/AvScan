@@ -18,7 +18,7 @@ async def test_start(mock: AsyncMock, session: AsyncSession, cache: Redis):
     task = await task_factory.add(session, user_id=user.id, interval=10)
     
     task_queue = TaskQueue(id=task.id, url=fake.url(), user_id=1, mode=ModeTask.INTERVAL)
-    await cache.zadd(queue.name_queue, {task_queue.to_json(): 0.8})
+    await cache.zadd(queue.name_queue, {task_queue.model_dump_json(): 0.8})
     mock.return_value = {}
     
     await parser_service.parse(session=session, task=task_queue)
@@ -32,11 +32,11 @@ async def test_start_add_product(mock: AsyncMock, session: AsyncSession, cache: 
     url = task.url
     
     task_queue = TaskQueue(id=task.id, url=url, user_id=user.id, mode=ModeTask.INTERVAL)
-    await cache.zadd(queue.name_queue, {task_queue.to_json(): 0.8})
+    await cache.zadd(queue.name_queue, {task_queue.model_dump_json(): 0.8})
     mock.return_value = {1: Product(
         id=1,
         name=fake.name(),
-        price=100,
+        price=str(100),
         description=fake.text(),
         url=fake.url(),
         image=fake.url(),
@@ -53,7 +53,7 @@ async def test_start_fail_parsing(mock: AsyncMock, session: AsyncSession, cache:
     task = await task_factory.add(session, user_id=user.id, interval=10)
     
     task_queue = TaskQueue(id=task.id, url=task.url, user_id=1, mode=ModeTask.INTERVAL)
-    await cache.zadd(queue.name_queue, {task_queue.to_json(): 0.8})
+    await cache.zadd(queue.name_queue, {task_queue.model_dump_json(): 0.8})
     mock.side_effect = ListProductError()
     
     await parser_service.parse(session=session, task=task_queue)

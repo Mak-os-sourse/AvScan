@@ -63,3 +63,4 @@ class SiteManager:
                 logger.info(f"Retry", url=url, attempt=count, total=retry, error=str(e))
                 last_error = e
         logger.error(f"Error ferch url", url=url, attempt=retry, total=retry, error=str(last_error))
+        raise last_error
