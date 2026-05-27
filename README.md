@@ -1,7 +1,7 @@
 # AvScan
 
 <p align="center">
-    <em>This is an iogram bot that parses Avito with priority queues.</em>
+    <em>This is an aiogram bot that parses Avito with priority queues.</em>
 </p>
 
 <p align="center">
