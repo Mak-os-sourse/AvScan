@@ -5,7 +5,7 @@ from src.app.bot.keyboards.inline import main_menu
 from src.app.bot.keyboards.inline import back_main_menu
 
 def get_main_photo() -> FSInputFile:
-    return FSInputFile("static/3.jpg")
+    return FSInputFile("static/menu.jpg")
 
 async def main_menu_msg(message: Message, first_name: str, edit: bool = False):
     menu = main_menu()
