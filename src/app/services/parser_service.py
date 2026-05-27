@@ -35,6 +35,6 @@ class ParserService:
                 .values(data) \
                 .on_conflict_do_update(index_elements=[ProductDB.id_product], set_=data)
             await session.execute(stmt)
-        await session.commit()
+        await session.flush()
     
 parser_service = ParserService()

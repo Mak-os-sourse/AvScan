@@ -1,4 +1,4 @@
-import logging, structlog
+import logging, structlog, os
 from logging import StreamHandler
 from logging.handlers import RotatingFileHandler
 
@@ -34,6 +34,7 @@ class Logger:
     
     @staticmethod
     def _file_handler() -> RotatingFileHandler:
+        os.makedirs(settings.PATH_LOGS, exist_ok=True)
         file_handler = RotatingFileHandler(
             settings.PATH_LOGS / "main.log",
             maxBytes=1024*1024,

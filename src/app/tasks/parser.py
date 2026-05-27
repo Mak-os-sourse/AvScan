@@ -18,6 +18,7 @@ class ParserTask:
     @staticmethod
     @broker.task(retry_on_error=True)
     async def start_polling(session: AsyncSession = TaskiqDepends(db.get_session), redis: Redis = TaskiqDepends(get_redis)):
+        await dispatcher_queue.sync_queue(session=session, redis=redis)
         while True:
             task_queue = await ParserTask._get_task_queue(redis=redis)
             if task_queue is None:
@@ -31,9 +32,10 @@ class ParserTask:
             
             products = list(products.values())
             
-            await dispatcher_queue.sync_queue(session=session, redis=redis)
-            
             await ParserTask._send_message(session, task_queue=task_queue, products=products)
+            
+            await dispatcher_queue.sync_queue(session=session, redis=redis)
+            await session.commit()
             await asyncio.sleep(5)
     
     @staticmethod
@@ -61,6 +63,7 @@ class ParserTask:
     async def _send_message(session: AsyncSession, task_queue: TaskQueue, products: list[Product]) -> None:
         if task_queue.mode == ModeTask.INTERVAL:
             task = dispatcher_queue.tasks.get(task_queue.id)
+            print(task)
             if task is None:
                 return
             wait = max(0, task.scheduled_at - int(time.time()))

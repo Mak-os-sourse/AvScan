@@ -1,3 +1,4 @@
+import time
 from redis.asyncio import Redis
 from sqlalchemy import select, or_
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -14,9 +15,10 @@ class DispatcherQueue:
         await self._add_update_tasks(session)
         await self._pop_deleted_tasks(session)
         await queue.update_queue(redis, self.tasks.values())
+        self.last_views = int(time.time())
         
     async def _add_update_tasks(self, session: AsyncSession) -> None:
-        stmt = select(Tasks).where(or_(Tasks.id.not_in(self.tasks.keys()), Tasks.last_update > self.last_views))
+        stmt = select(Tasks).where(or_(Tasks.id.not_in(self.tasks.keys()), Tasks.last_update >= self.last_views))
         data = (await session.scalars(stmt)).all()
         for item in data:
             self.tasks[item.id] = item

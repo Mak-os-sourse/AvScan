@@ -8,5 +8,4 @@ redis = Redis.from_url(url=str(settings.REDIS_URL), decode_responses=True)
 storage = RedisStorage(redis)
 
 async def get_redis():
-    async with Redis.from_url(url=str(settings.REDIS_URL)) as redis:
-        yield redis
+    yield redis

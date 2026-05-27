@@ -1,0 +1,7 @@
+logs
+pgdata
+redisdata
+.vscode
+.venv
+.pytest_cache
+__pycache__

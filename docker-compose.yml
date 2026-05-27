@@ -18,3 +18,29 @@ services:
       - "6379:6379"
     volumes:
       - ./redisdata:/data
+
+  app:
+    build:
+      dockerfile: Dockerfile
+
+    command: uv run main.py
+
+    ports:
+      - "2347:8080"
+    depends_on:
+      - db
+      - redis
+      - taskiq
+
+  taskiq:
+    build:
+      dockerfile: Dockerfile
+
+    command: uv run taskiq worker src.app.core.broker_task:broker src.app.tasks --workers 1
+
+    ports:
+      - "80:8080"
+    
+    depends_on:
+      - db
+      - redis
