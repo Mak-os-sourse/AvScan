@@ -3,6 +3,7 @@ __pycache__/
 *.py[codz]
 *$py.class
 settings.env
+redisdata
 pgdata
 .vscode
 logs
