@@ -10,6 +10,9 @@
     <img src="https://img.shields.io/github/stars/OkulusDev/Oxygen">
 </p>
 
+<p align="center">
+    <img width="660" height="453" alt="image" src="https://github.com/user-attachments/assets/8f102d13-f260-4f46-a62f-e6aecee49d8c" />
+</p>
 
 ## Установка и запуск
 Вы должны склонировать репозиторий:
