@@ -1,7 +1,7 @@
 # AvScan
 
 <p align="center">
-    <em>Это бот на aiogram, который парсит авито с приоритетными очередями</em>
+    <em>This is an iogram bot that parses Avito with priority queues.</em>
 </p>
 
 <p align="center">
@@ -14,14 +14,28 @@
     <img width="660" height="453" alt="image" src="https://github.com/user-attachments/assets/8f102d13-f260-4f46-a62f-e6aecee49d8c" />
 </p>
 
-## Установка и запуск
-Вы должны склонировать репозиторий:
+## Stack
+* sqlalchemy (Postgresql)
+* alembic
+* redis
+* aiogram
+* pytest
+* pytest-asyncio
+* playwright
+* playwright-stealth
+* bs4
+* taskiq
+* pandas
+* structlog
+
+## Installation and launch
+First, you need to clone the repository:
 * `git clone https://github.com/Mak-os-sourse/AvScan.git`
 
-Теперь вы можете запустить контейнер: 
+Now you can run the container:
 * `docker-compose up -d`
 
-## Структура
+## Structure
 ```
 ├───src
 │   ├───app
